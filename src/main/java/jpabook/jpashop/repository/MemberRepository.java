@@ -26,7 +26,7 @@ public class MemberRepository {
     public List<Member> findAll() {
         List<Member> result = em.createQuery("select m from Member m", Member.class) //(JPQL, 반환타입)
                 .getResultList();
-        return result;  //강사님은 CTRL ALT N으로 인라인했는데 나는 그냥 냅둠
+        return result;  //강사님은 CTRL+ALT+N으로 인라인했는데, 헷갈려서 그냥 내비둠
     }
 
     public List<Member> findByName(String name) {
