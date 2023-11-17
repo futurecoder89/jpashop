@@ -1,7 +1,9 @@
 package jpabook.jpashop.domain;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
@@ -11,6 +13,7 @@ import java.util.List;
 @Entity
 @Table(name = "orders")
 @Getter@Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order {
     @Id @GeneratedValue
     @Column(name = "order_id")
@@ -81,7 +84,7 @@ public class Order {
     public int getTotalPrice() {
         int totalPrice = 0;
         for (OrderItem orderItem : orderItems) {  //루프되는 대상의 가격으로 비용이 새로 할당됨
-            totalPrice += orderItem.getTotalPrice();
+            totalPrice += orderItem.getTotalPrice(); // 루프되면서 비용이 누적됨. =로하면 루프되는 대상의 가격이 새롭게 할당됨
         }
         return totalPrice;
 

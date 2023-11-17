@@ -2,13 +2,16 @@ package jpabook.jpashop.domain;
 
 import jakarta.persistence.*;
 import jpabook.jpashop.domain.item.Item;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = "order_item")
 @Getter
 @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED) //protected OrderItem //OrderService.order()에 주문상품생성을 set으로 값지정못하게 막는것
 public class OrderItem {
 
     @Id @GeneratedValue
@@ -26,11 +29,30 @@ public class OrderItem {
     private int orderPrice; //주문 가격
     private int count; //주문 수량
 
+  /*  protected OrderItem() {
+    }*/
+
+    //생성 매서드==//
+    public static OrderItem createOrderItem(Item item, int orderPrice, int count) {
+        OrderItem orderItem = new OrderItem();
+        orderItem.setItem(item);
+        orderItem.setOrderPrice(orderPrice);
+        orderItem.setCount(count);
+
+        item.removeStock(count); //오더아이템을 생성을하면서 재고를 줄인다
+        return orderItem;
+    }
+
     //==비즈니스 로직==//
     public void cancel() {
         getItem().addStock(count);
     }
 
+
+    //==조회 로직==//
+    /*
+    주문상품 전체 가격 조회
+     */
     public int getTotalPrice() {
         return getOrderPrice() * getCount();
     }
