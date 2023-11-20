@@ -26,7 +26,7 @@ public class OrderService {
         //배송정보 생성
         Delivery delivery = new Delivery();
         delivery.setAddress(member.getAddress());
-        delivery.setStatus(DeliveryStatus.READY);
+        delivery.setStatus(DeliveryStatus.READY); //배송은 왜 set을 쓸까?
 
         //주문상품 생성
         OrderItem orderItem = OrderItem.createOrderItem(item, item.getPrice(), count);
