@@ -21,7 +21,7 @@ public class MemberController {
     @GetMapping("/members/new")
     public String createForm(Model model) {
         model.addAttribute("memberForm", new MemberForm());
-        return "member/createMemberForm";
+        return "members/createMemberForm";
     }
     @PostMapping("members/new")
     public String create(@Valid MemberForm form, BindingResult result){  //MemberForm에있는 @NotEmpty annot를 활성화시켜준다
