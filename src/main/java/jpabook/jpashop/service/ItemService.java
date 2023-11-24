@@ -27,13 +27,16 @@ public class ItemService {
         return itemRepository.findOne(itemId);
     }
 
-    @Transactional void updateItem(Long itemId, Book param){
+    @Transactional
+    public void updateItem(Long itemId, String name, int price, int stockQuantity ){  //findItem을 반환해준다 밑 코드는 merge()를 풀어쓴 메소드이다
         Item findItem = itemRepository.findOne(itemId);
-        findItem.setPrice(param.getPrice());
-        findItem.setName(param.getName());
-        findItem.setStockQuantity(param.getStockQuantity());
+        findItem.setPrice(price);
+        findItem.setName(name);
+        findItem.setStockQuantity(stockQuantity);
+        /*return findItem;*/
         /*itemRepository.save(findItem); 을 할필요가없다 */
         //준영속 상태 entity이기때문에 스프링의 transaction에 의해서
         /*commit이되면 flush()가 생성된다 그러면 자동으로 update를 한다*/
+        //하지만 setter로 하는건 좋지않은 코드이다 findItem.change(name price stockQuantity)같은 메소드를 만들어서 하자.
     }
 }
